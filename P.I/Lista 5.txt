@@ -1,0 +1,247 @@
+Lista 5
+
+1)
+ALGORITIMO
+DECLARE A1, A2, AR NUMERICOS
+ESCREVA "Insira a altura dos degraus em metros"
+LEIA A1
+ESCREVA "Insira a altura a percorrer em metros"
+LEIA A2
+AR <- (A1/A2)
+LEIA AR
+ESCREVA "Quantidade de degraus", AR
+FIM_ALGORITIMO
+
+2)
+ALGORITIMO
+DECLARE AN, AL, ES, RA NUMERICOS
+ESCREVA "Digite o ângulo da escada em graus:"
+LEIA AN
+ESCREVA "Digite a altura da parede:"
+LEIA AL
+RA <- AN * 3.14159/180
+ES <- AL / RA
+ESCREVA "O comprimento da escada é:", ES, "Metros"
+FIM_ALGORITIMOS
+
+3)
+ALGORITIMO
+DECLARE ES, AL, DS NUMERAL
+ESCREVA "Digite o tamanho da escada"
+LEIA ES
+ESCREVA "Digite a altura que deseja alcançar"
+LEIA AL
+SE ES > AL
+ENTÃO INICIAR
+DS <- RAIZ(ES*ES - AL*AL)
+ESCREVA "A escada deve ficar a ", DS, "metros da parede"
+FIM
+SENÃO
+ESCREVA "O tamanho da escada deve ser maior que a altura desejada"
+FIM
+FIM_ALGORITIMO
+
+4)
+ALGORITIMO
+DECLARE N, PI, PF, AR NUMERAL
+ESCREVA "Digite um número real"
+LEIA N
+PI <- TRUNCAR(N)
+PF <- N - PI
+AR <- ARREDONDAR(N)
+ESCREVA "Parte inteira: ", PI
+ESCREVA "Parte fracionaria: ", PF
+ESCREVA "Arredondamento: ", AR
+FIM_ALGORITIMO
+
+5)
+ALGORITIMO
+DECLARE C,PC,Q NUMERAL
+ESCREVA "Digite o custo do espetáculo"
+LEIA C
+ESCREVA "Digite o preço do convite"
+LEIA PC
+Q <- ARREDONDAR_PARA_CIMA(C / PC)
+ESCREVA "Quantidade de convites que devem ser vendidos", Q
+FIM_ALGORITIMO
+
+6)
+ALGORITIMO
+DECLARE S, T, I, G, SL NUMERAL
+DECLARE CT CARACTERE
+ESCREVA "Digite o salário base"
+LEIA S
+ESCREVA "Digite o tempo de serviço em anos"
+LEIA T
+ // CALCULO DO IMPOSTO
+SE S < 200
+ENTÃO INICIAR
+I <- 0
+FIM
+SENÃO SE S <= 450
+ENTÃO INICIAR
+I <- S * 0.03
+FIM
+SENÃO SE S < 700
+ENTÃO INICIAR
+I <- S * 0.08
+FIM
+SENÃO
+I <- S * 0.12
+FIM
+ // CALCULO DA GRATIFICAÇÃO
+SE S > 500
+ENTÃO INICIAR
+SE T <= 3
+ENTÃO
+G <- 20
+SENÃO
+G <- 30
+FIM
+FIM
+SENÃO
+SE T <=3
+ENTÃO
+G <- 23
+SENÃO SE T <= 6
+ENTÃO 
+G <- 35
+SENÃO
+G <- 33
+FIM
+FIM
+ // SALARIO LIQUIDO
+SL <- S - I + G
+ // CLASSIFICAÇÃO
+SE SL <= 350
+ENTÃO
+categoria <- "A"
+SENÃO SE SL < 600
+ENTÃO
+categoria <- "B"
+SENÃO
+categoria <- "C"
+FIM
+ESCREVA "Imposto: ", I
+ESCREVA "Gratificação: ", G
+ESCREVA "Salário Liquido: ", SL
+ESCREVA "Categoria: ", categoria
+FIM_ALGORITIMO
+
+7)
+ALGORITIMO
+DECLARE ES, CC, PT, PK, PCK, VC, I, VI, T NUMERAL
+ESCREVA "Digite o código do estado"
+LEIA ES
+ESCREVA "Digite o peso da carga em toneladas"
+LEIA PT
+ESCREVA "Digite o código da carga"
+LEIA CC
+	//PREÇO POR QUILO
+SE CC >= 10 E CC <= 20
+ENTÃO
+PCK <- 250
+SENÃO
+PCK <- 340
+FIM
+	//CONVERSÃO PARA QUILOS
+PK <- PT * 1000
+VC <- PK * PCK
+	//IMPOSTO
+SE ES = 1
+ENTÃO
+I <- 0.35
+SENÃO SE ES = 2
+ENTÃO
+I <- 0.25
+SENÃO SE ES = 3
+ENTÃO
+I <-0.15
+SENÃO SE ES = 4
+ENTÃO
+I <- 0.05
+SENÃO
+I <- 0
+FIM
+VI <- VC * I
+T <- VC+VI
+ESCREVA "Valor da carga", VC
+ESCREVA "Valor do imposto", VI
+ESCREVA "Valor total", T
+FIM_ALGORITIMO
+
+8)
+ALGORITIMO
+DECLARE A, P NUMERAL
+DECLARE CL CARACTERE
+ESCREVA "Digite a altura da pessoa"
+LEIA A
+ESCREVA "Digite o peso da pessoa"
+LEIA P
+SE A < 1.2
+ENTÃO INICIAR
+SE P <= 60
+ENTÃO 
+CL <- "A"
+SENÃO SE P <= 90
+ENTÃO
+CL <- "D"
+SENÃO
+CL <- "G"
+FIM
+SENÃO SE ALTURA <= 1.7
+ENTÃO INICIAR
+SE P <= 60
+ENTÃO
+CL <- "B"
+SENÃO SE P <= 90
+ENTÃO
+CL <- "E"
+SENÃO
+CL <- "H"
+FIM
+SENÃO
+SE P <= 60
+ENTÃO
+CL <- "C"
+SENÃO SE P <= 90
+ENTÃO
+CL <- "F"
+SENÃO
+CL <- "I"
+FIM
+ESCREVA "A classificação da pessoa é:", CL
+FIM_ALGORITIMO
+
+9)
+ALGORITIMO
+DECLARE A, B, C, DL, X1, X2 NUMERAL
+ESCREVA "Digite o valor de A:"
+LEIA A
+ESCREVA "Digite o valor de B:"
+Leia B
+ESCREVA "Digite o valor de C:"
+Leia C
+SE A = 0
+ENTÃO 
+ESCREVA "Não é uma equação do segundo grau"
+SENÃO
+DL <- B * B - 4 * A * C
+SE DL > 0
+ENTÃO INICIAR
+X1 <- (-B + RAIZ(DL)) / (2 * A)
+X2 <- (-B - RAIZ(DL)) / (2 * A)
+ESCREVA "Duas raízes reais"
+ESCREVA "X1 = ", X1
+ESCREVA "X2 = ", X2
+FIM
+SENÃO SE DL = 0
+ENTÃO INICIAR
+X1 <- -B / (2 * A)
+ESCREVA "Uma raiz real"
+ESCREVA "X = ", X1
+FIM
+SENÃO
+ESCREVA "Não existem raízes reais"
+FIM
+FIM_ALGORITIMO

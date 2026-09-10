@@ -1,0 +1,188 @@
+a)
+ALGORITMO
+DECLARE nota1, nota2, nota3, MA, notaRecuperar NUMERAL
+ESCREVA "Insira as três notas"
+LEIA nota1, nota2, nota3
+MA <- (nota1 + nota2 + nota3)/3
+SE (MA > 0 E MA < 3)
+
+	ENTÃO INICIO
+	ESCREVA "REPROVADO"
+		FIM
+
+	SENÃO SE (MA >= 3 E M<7)
+	ENTÃO INICIO
+	ESCREVA "Exame"
+	notaRecuperar = 12 - MA
+	ESCREVA "Nota a recuperar:", notaRecuperar
+		FIM
+
+	SENÃO INÍCIO
+	ESCREVA "Aprovado"
+		FIM	
+FIM_ALGORITMO
+
+b)
+ALGORITMO
+LEIA n1, n2 NUMÉRICO
+ESCREVA "Insira dois números"
+LEIA n1
+LEIA n2
+SE n1 > n2
+	ENTÃO ESCREVA "O maior número é: ", n1
+	SENÃO SE n2 > n1
+	ENTÃO ESCREVA "O maior número é:", n2
+		SENÃO ESCREVA "Os números são iguais"
+
+FIM_ALGORITMO
+
+c)
+ALGORITMO
+DECLARE n1, n2, n3, maiorNumero, numeroMedio, menorNumero NUMÉRICO
+ESCREVA "Insira três números aleatórios"
+LEIA n1
+LEIA n2
+LEIA n3
+SE n1 > n2 > n3
+ENTÃO INICIAR
+	n1 == maiorNumero
+	n2 == numeroMedio
+	n3 == menorNumero
+	ESCREVA maiorNumero, numeroMedio, menorNumero
+		FIM
+	SE n1 < n2 > n3
+	ENTÃO INICIAR
+	n2 == maiorNumero
+	n1 == menorNumero
+	n3 == numeroMedio
+	ESCREVA maiorNumero, numeroMedio, menorNumero
+		FIM
+	SE n1 < n2 < n3
+	ENTÃO INICIAR
+	n3 == maiorNumero
+	n2 == numeroMedio
+	n1 == menorNumero
+	ESCREVA maiorNumero, numeroMedio, menorNumero
+		FIM
+SENÃO n1 = n2 E n1 = n3 E n2 = n1 E n2 = n3
+	ESCREVA "Numeros iguais! Insira números diferentes"
+		FIM
+FIM_ALGORITMO
+
+4)
+ALGORITMO
+DECLARE numero, resto NUMÉRICO
+
+ESCREVA "Digite um número inteiro: "
+LEIA numero
+
+resto <- numero MOD 2
+
+SE resto = 0
+ENTÃO ESCREVA "Número par"
+SENÃO ESCREVA "Número ímpar"
+
+FIM_ALGORITMO
+
+5)
+ALGORITMO
+DECLARE OP, numero1, numero2, resultado NUMERAL
+ESCREVA "Escolha sua rota: 1-soma 2-raiz quadrada"
+	LEIA = OP
+		SE OP=1
+		ENTÃO INICIAR
+		ESCREVA "Insira dois números"
+		LEIA numero1, numero2
+		resultado <- numero1 + numero2
+		ESCREVA resultado
+			FIM
+	SENÃO SE OP = 2
+		ENTÃO INICIAR
+		ESCREVA "Insira um numeral inteiro"
+		LEIA numero1
+		resultado <- numero1,1.0/2.0
+		ESCREVA resultado
+			FIM
+	SENÃO
+ESCREVA "Inválido"
+FIM_ALGORITMO	
+
+6)
+ALGORITMO
+DECLARE salario, bonificação, auxilio, novoSalario, novoSalarioBonus NUMERAL 
+ESCREVA "Insira salário"
+LEIA salario
+SE salario = 500.00
+	ENTÃO INICIAR
+	novoSalario <- salario + (salario * 0.05)
+	ESCREVA "Seu salário com bônus é", novoSalario
+			FIM
+		SENÃO SE 500 =< salario > 1200
+		ENTÃO INICIAR
+		novoSalario <- salario + (salario * 0.12)
+		ENTÃO ESCREVA "Seu salário com bônus é", novoSalario
+			FIM
+		SENÃO SE salario <= 1200
+		ENTÃO ESCREVA "Não suscinto a bônus"
+
+SE salario = 600
+	ENTÃO INICIAR
+	novoSalarioBonus <- salario + 150
+	ESCREVA "Seu salário com bônus é", novoSalarioBonus
+		FIM
+	SENÃO SE salario <= 600
+	novoSalarioBonus <- salario + 100 
+	ESCREVA "Seu salário com bônus é", novoSalarioBonus
+		FIM
+FIM_ALGORITMO
+
+7)
+ALGORITMO
+DECLARE produto, novoPreco, preco, vendas NUMERAL
+ESCREVA "Insira o preço do produto"
+LEIA preco
+ESCREVA "Quantas unidades foram vendidas?"
+vendas
+SE venda < 500 E preco < 30.00
+	ENTÃO INICIAR
+	novoPreco <- preco * 0.10
+	ESCREVA novoPreco
+	FIM
+		SENÃO SE venda >= 500 E venda < 1200.00 E >= 30. 00 E < 80. 00
+	ENTÃO INICIAR
+	novoPreco <- preco * 0.15
+	ESCREVA novoPreco
+	FIM
+		SENÃO venda >= 1200.00 E >= 80.00
+	ENTÃO INICIAR
+	novoPreco <- preco / 0.20
+	ESCREVA novoPreco
+	FIM
+
+FIM_ALGORITMO
+
+8)
+ALGORITMO
+DECLARE X, Y, Z NUMERAL
+ESCREVA "Insira o número de cada lado do triangulo."
+LEIA X, Y, Z
+SE X == Y == Z
+ENTÃO INICIAR
+	ESCREVA "Seu triangulo é equilátero"
+	FIM
+	SENÃO SE X == Y <> Z OU X <> Y == Z
+	ENTÃO INICIAR
+	ESCREVA "Seu triangulo é Isóscele"
+	FIM
+	SENÃO X <> Y <> Z
+	ESCREVA "Seu triangulo é escaleno"
+	FIM
+FIM_ALGORITMO 	
+
+
+
+
+
+
+
+
