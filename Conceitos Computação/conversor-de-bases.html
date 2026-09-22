@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Conversor de Bases</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #ECF0F3;
+    --surface: #FFFFFF;
+    --ink: #1B2430;
+    --ink-soft: #55606E;
+    --ink-faint: #8892A0;
+    --line: #CBD3DA;
+    --accent: #2F6F63;
+    --accent-ink: #FFFFFF;
+    --accent-soft: #DCEAE6;
+    --gold: #B9832A;
+    --gold-soft: #F3E7D2;
+    --danger: #A83B2E;
+    --danger-soft: #F5DFDA;
+    --radius: 16px;
+  }
+  :root:not([data-theme="light"]) {
+    @media (prefers-color-scheme: dark) {
+      --paper: #12161C;
+      --surface: #1B212B;
+      --ink: #EAEDF0;
+      --ink-soft: #9AA5B1;
+      --ink-faint: #626D7A;
+      --line: #2C3542;
+      --accent: #4FA593;
+      --accent-ink: #0B1512;
+      --accent-soft: #1E3733;
+      --gold: #E0AC55;
+      --gold-soft: #3A2E17;
+      --danger: #E07767;
+      --danger-soft: #3A211D;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #12161C;
+    --surface: #1B212B;
+    --ink: #EAEDF0;
+    --ink-soft: #9AA5B1;
+    --ink-faint: #626D7A;
+    --line: #2C3542;
+    --accent: #4FA593;
+    --accent-ink: #0B1512;
+    --accent-soft: #1E3733;
+    --gold: #E0AC55;
+    --gold-soft: #3A2E17;
+    --danger: #E07767;
+    --danger-soft: #3A211D;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Inter', system-ui, sans-serif;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    min-height: 100vh;
+  }
+  .wrap { max-width: 480px; margin: 0 auto; padding: 26px 20px 40px; }
+
+  .eyebrow {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 11.5px; font-weight: 600; letter-spacing: 1.6px;
+    text-transform: uppercase; color: var(--ink-faint); margin: 0 0 10px;
+  }
+  .eyebrow .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); flex: none; }
+  h1 {
+    font-family: 'Space Mono', monospace; font-size: 30px; font-weight: 700;
+    margin: 0 0 20px; letter-spacing: -0.5px;
+  }
+
+  .calc-display {
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 18px 18px 16px; margin-bottom: 14px;
+  }
+  .calc-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .calc-tag { font-size: 12px; color: var(--ink-faint); font-weight: 500; white-space: nowrap; }
+
+  input#numero {
+    flex: 1; min-width: 0; text-align: right;
+    font-family: 'Space Mono', monospace; font-size: 32px; font-weight: 700;
+    background: transparent; border: none; color: var(--ink); outline: none; padding: 4px 0;
+  }
+  input#numero::placeholder { color: var(--line); }
+
+  .sub-row { margin-top: 6px; }
+  select.mini-select {
+    appearance: none;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    color: var(--ink-soft);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 6px 26px 6px 10px;
+    outline: none;
+    background-image: linear-gradient(45deg, transparent 50%, var(--ink-faint) 50%), linear-gradient(135deg, var(--ink-faint) 50%, transparent 50%);
+    background-position: calc(100% - 14px) 55%, calc(100% - 9px) 55%;
+    background-size: 5px 5px, 5px 5px;
+    background-repeat: no-repeat;
+  }
+  select.mini-select.accent {
+    background-color: var(--accent-soft);
+    color: var(--accent);
+    border-color: transparent;
+    font-weight: 700;
+  }
+
+  .calc-divider { height: 1px; background: var(--line); margin: 14px 0 10px; }
+  .calc-divider.thin { margin: 10px 0; opacity: 0.6; }
+
+  .result-row { margin-bottom: 4px; }
+  .calc-result {
+    font-family: 'Space Mono', monospace; font-size: 26px; font-weight: 700;
+    color: var(--ink); text-align: right; word-break: break-all; flex: 1;
+  }
+
+  .error-msg { font-size: 12.5px; color: var(--danger); margin: 12px 0 0; text-align: right; display: none; }
+  .error-msg.show { display: block; }
+
+  button#converter {
+    width: 100%; background: var(--accent); color: var(--accent-ink); border: none;
+    border-radius: var(--radius); font-family: 'Inter', sans-serif; font-size: 16px;
+    font-weight: 700; padding: 15px; cursor: pointer; margin-bottom: 22px;
+  }
+  button#converter:active { opacity: 0.85; }
+  button#converter .eq { font-family: 'Space Mono', monospace; margin-left: 6px; }
+
+  .history-toggle {
+    display: flex; align-items: center; justify-content: space-between; width: 100%;
+    background: transparent; border: none; border-top: 1px solid var(--line);
+    padding: 12px 2px; font-family: 'Inter', sans-serif; font-size: 12.5px; font-weight: 600;
+    letter-spacing: 0.4px; text-transform: uppercase; color: var(--ink-faint); cursor: pointer;
+  }
+  .history-toggle .chevron { font-family: 'Space Mono', monospace; color: var(--ink-faint); transition: transform 0.2s ease; }
+  .history-toggle.open .chevron { transform: rotate(180deg); }
+  .history-panel { max-height: 0; overflow: hidden; transition: max-height 0.25s ease; }
+  .history-panel.open { max-height: 420px; overflow-y: auto; }
+
+  .history-item { padding: 14px 2px; border-top: 1px solid var(--line); text-align: right; }
+  .history-item .h-expr { font-family: 'Space Mono', monospace; font-size: 13px; color: var(--ink-faint); }
+  .history-item .h-eq { font-family: 'Space Mono', monospace; font-size: 16px; font-weight: 700; color: var(--ink); margin-top: 3px; line-height: 1.5; }
+  .history-item .h-eq .unit { font-size: 12px; font-weight: 500; color: var(--ink-faint); }
+  .history-item .h-time { font-size: 10.5px; color: var(--ink-faint); margin-top: 5px; }
+
+  .history-empty { padding: 18px 2px; font-size: 13px; color: var(--ink-faint); text-align: right; border-top: 1px solid var(--line); }
+  .history-clear {
+    display: block; margin-top: 4px; background: transparent; border: none; color: var(--danger);
+    font-family: 'Inter', sans-serif; font-size: 12.5px; font-weight: 600; padding: 10px 2px;
+    cursor: pointer; text-align: right; width: 100%;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <p class="eyebrow"><span class="dot"></span>Conversor de bases numéricas</p>
+    <h1>Base Fácil</h1>
+  </header>
+
+  <div class="calc-display">
+    <div class="calc-row">
+      <span class="calc-tag">Número</span>
+      <input id="numero" type="text" inputmode="text" placeholder="ex: 45" autocomplete="off" spellcheck="false">
+    </div>
+    <div class="calc-row sub-row">
+      <span class="calc-tag">Base de origem</span>
+      <select id="baseOrigem" class="mini-select"></select>
+    </div>
+
+    <div class="calc-divider"></div>
+
+    <div class="calc-row result-row">
+      <select id="baseDestino1" class="mini-select accent"></select>
+      <span class="calc-result" id="valor1">—</span>
+    </div>
+    <div class="calc-divider thin"></div>
+    <div class="calc-row result-row">
+      <select id="baseDestino2" class="mini-select accent"></select>
+      <span class="calc-result" id="valor2">—</span>
+    </div>
+    <div class="calc-divider thin"></div>
+    <div class="calc-row result-row">
+      <select id="baseDestino3" class="mini-select accent"></select>
+      <span class="calc-result" id="valor3">—</span>
+    </div>
+
+    <p class="error-msg" id="erro">Digite um número válido para a base escolhida.</p>
+  </div>
+
+  <button id="converter">Converter<span class="eq">=</span></button>
+
+  <div>
+    <button class="history-toggle" id="histToggle">
+      <span>Histórico</span>
+      <span class="chevron">⌄</span>
+    </button>
+    <div class="history-panel" id="histPanel">
+      <div class="history-empty" id="histEmpty">Nenhuma conversão salva ainda.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var numeroInput = document.getElementById('numero');
+  var baseOrigem = document.getElementById('baseOrigem');
+  var baseDestino1 = document.getElementById('baseDestino1');
+  var baseDestino2 = document.getElementById('baseDestino2');
+  var baseDestino3 = document.getElementById('baseDestino3');
+  var valor1 = document.getElementById('valor1');
+  var valor2 = document.getElementById('valor2');
+  var valor3 = document.getElementById('valor3');
+  var erro = document.getElementById('erro');
+  var histToggle = document.getElementById('histToggle');
+  var histPanel = document.getElementById('histPanel');
+
+  var NOMES_BASE = { 2: 'Binário', 8: 'Octal', 10: 'Decimal', 16: 'Hexadecimal' };
+  function rotuloBase(b) {
+    return NOMES_BASE[b] ? NOMES_BASE[b] + ' (' + b + ')' : 'Base ' + b;
+  }
+  function fillSelect(sel, def) {
+    for (var b = 2; b <= 36; b++) {
+      var opt = document.createElement('option');
+      opt.value = b;
+      opt.textContent = rotuloBase(b);
+      if (b === def) opt.selected = true;
+      sel.appendChild(opt);
+    }
+  }
+  fillSelect(baseOrigem, 10);
+  fillSelect(baseDestino1, 2);
+  fillSelect(baseDestino2, 8);
+  fillSelect(baseDestino3, 16);
+
+  function validFor(str, base) {
+    if (!str) return false;
+    var digits = '0123456789abcdefghijklmnopqrstuvwxyz'.slice(0, base);
+    var s = str.toLowerCase();
+    for (var i = 0; i < s.length; i++) {
+      if (digits.indexOf(s[i]) === -1) return false;
+    }
+    return true;
+  }
+
+  function recalcular() {
+    var raw = numeroInput.value.trim();
+    var origem = parseInt(baseOrigem.value, 10);
+    var d1 = parseInt(baseDestino1.value, 10);
+    var d2 = parseInt(baseDestino2.value, 10);
+    var d3 = parseInt(baseDestino3.value, 10);
+
+    if (raw === '') {
+      erro.classList.remove('show');
+      valor1.textContent = '—';
+      valor2.textContent = '—';
+      valor3.textContent = '—';
+      return null;
+    }
+    if (!validFor(raw, origem)) {
+      erro.classList.add('show');
+      valor1.textContent = '—';
+      valor2.textContent = '—';
+      valor3.textContent = '—';
+      return null;
+    }
+    erro.classList.remove('show');
+    var decimal = parseInt(raw, origem);
+    var r1 = decimal.toString(d1).toUpperCase();
+    var r2 = decimal.toString(d2).toUpperCase();
+    var r3 = decimal.toString(d3).toUpperCase();
+    valor1.textContent = r1;
+    valor2.textContent = r2;
+    valor3.textContent = r3;
+    return { raw: raw, origem: origem, d1: d1, d2: d2, d3: d3, r1: r1, r2: r2, r3: r3 };
+  }
+
+  numeroInput.addEventListener('input', recalcular);
+  baseOrigem.addEventListener('change', recalcular);
+  baseDestino1.addEventListener('change', recalcular);
+  baseDestino2.addEventListener('change', recalcular);
+  baseDestino3.addEventListener('change', recalcular);
+
+  var HIST_KEY = 'conversor-bases-historico-v3';
+  function loadHistory() {
+    try {
+      var raw = localStorage.getItem(HIST_KEY);
+      return raw ? JSON.parse(raw) : [];
+    } catch (e) { return []; }
+  }
+  function saveHistory(list) {
+    try { localStorage.setItem(HIST_KEY, JSON.stringify(list)); } catch (e) {}
+  }
+  function renderHistory() {
+    var list = loadHistory();
+    histPanel.innerHTML = '';
+    if (list.length === 0) {
+      var empty = document.createElement('div');
+      empty.className = 'history-empty';
+      empty.textContent = 'Nenhuma conversão salva ainda.';
+      histPanel.appendChild(empty);
+      return;
+    }
+    list.slice().reverse().forEach(function (item) {
+      var row = document.createElement('div');
+      row.className = 'history-item';
+
+      var expr = document.createElement('div');
+      expr.className = 'h-expr';
+      expr.textContent = item.raw.toUpperCase() + ' \u00b7 ' + rotuloBase(item.origem);
+
+      var eq = document.createElement('div');
+      eq.className = 'h-eq';
+      eq.innerHTML = '= ' + item.r1 + ' <span class="unit">' + rotuloBase(item.d1) + '</span><br>= ' + item.r2 + ' <span class="unit">' + rotuloBase(item.d2) + '</span><br>= ' + item.r3 + ' <span class="unit">' + rotuloBase(item.d3) + '</span>';
+
+      var time = document.createElement('div');
+      time.className = 'h-time';
+      time.textContent = item.quando;
+
+      row.appendChild(expr);
+      row.appendChild(eq);
+      row.appendChild(time);
+      histPanel.appendChild(row);
+    });
+
+    var clearBtn = document.createElement('button');
+    clearBtn.className = 'history-clear';
+    clearBtn.textContent = 'Limpar histórico';
+    clearBtn.addEventListener('click', function () {
+      saveHistory([]);
+      renderHistory();
+    });
+    histPanel.appendChild(clearBtn);
+  }
+  renderHistory();
+
+  histToggle.addEventListener('click', function () {
+    histPanel.classList.toggle('open');
+    histToggle.classList.toggle('open');
+  });
+
+  document.getElementById('converter').addEventListener('click', function () {
+    var res = recalcular();
+    if (!res) return;
+
+    var agora = new Date();
+    var quando = agora.toLocaleDateString('pt-BR') + ' ' + agora.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+
+    var list = loadHistory();
+    list.push({ raw: res.raw, origem: res.origem, d1: res.d1, d2: res.d2, d3: res.d3, r1: res.r1, r2: res.r2, r3: res.r3, quando: quando });
+    saveHistory(list);
+    renderHistory();
+
+    if (!histPanel.classList.contains('open')) {
+      histPanel.classList.add('open');
+      histToggle.classList.add('open');
+    }
+  });
+})();
+</script>
+</body>
+</html>
