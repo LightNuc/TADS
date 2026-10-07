@@ -1,0 +1,177 @@
+														Lista 7
+___________________________________________________________________________________________________________________________________________________________________________________________________________________________________________					
+1)
+ALGORITIMO
+DECLARE numeros[9], i, j, divisores NUMERICOS
+PARA i <- 1 ATÉ 9 FAÇA
+INICIO
+	ESCREVA "Digite o", i, "numero:"
+	LEIA numeros[i]
+FIM
+ESCREVA "Números primos:"
+PARA i <- 1 ATÉ 9 FAÇA
+INICIO
+	divisores <- 0
+	PARA j <- 1 ATÉ numeros[i] FAÇA
+	INICIO
+		divisores <- 0
+		PARA j <- 1 ATÉ numeros[i] FAÇA
+		INICIO
+			SE RESTO(numeros[i] / j) =
+0
+			ENTÃO divisores <-
+divisores + 1
+	FIM
+	SE divisores + 2
+	ENTÃO ESCREVA "Número: ", numeros[i], " - Posição: ", i
+FIM
+FIM_ALGORITIMO
+___________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+2)
+ALGORITIMO
+DECLARE preco[10], quantidade[10], total[10], i, valorTotal, comissao, maiorQuantidade, posicao NUMERICO
+valorTotal <- 0
+PARA i <- 1 ATE 10 FAÇA
+INICIO
+	ESCREVA "Digite o preço do objeto ", i, ": "
+	LEIA preco[i]
+	ESCREVA "Digite a quantidade vendida do objeto ", i, ": "
+	LEIA quantidade[i]
+	total[i] <- preco[i] * quantidade[i]
+	valorTotal <- valorTotal + total[i]
+FIM
+ESCREVA "Relatório"
+PARA i <- 1 ATE 10 FAÇA
+INICIO
+	ESCREVA "Objeto ", i
+	ESCREVA "Quantidade vendida: ", quantidade[i]
+	ESCREVA "Valor unitário: ", preco[i]
+	ESCREVA "Valor total: ", total[i]
+FIM
+comissão <- valorTotal * 0.05
+ESCREVA "Valor geral das vendas: R$ ", valorTotal
+ESCREVA "Comissão do vendedor: R$ ", comissão
+maiorQuantidade <- quantidade[i] <- 1
+PARA i <- 2 ATE 10 FAÇA
+INICIO
+	SE quantidade[i] > maiorQuantidade
+	ENTAO INICIO
+		maiorQuantidade <- quantidade[i]
+		posição <- i
+	FIM
+FIM
+ESCREVA "Objeto mais vendido: ",
+maiorQuantidade, " unidades"
+ESCREVA "Posição do objeto: ", posição
+FIM_ALGORITIMO
+___________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+3)
+ALGORITIMO
+DECLARE numeros[8], i, j, aux NUMERICO
+PARA i <- 1 ATE 8 FAÇA
+INICIO
+	ESCREVA "Digite o ", i, "numero: "
+	LEIA numeros[i]
+	PARA j <- i ATE 2 PASSO -1 FAÇA
+	INICIO
+		SE numeros[j] < numeros[j - 1]
+		ENTAO INICIO
+		aux <- números[j]
+		numeros[j] <- numeros[j - 1]
+		numeros[j - 1] <- aux
+		FIM
+	FIM
+FIM
+ESCREVA "Vetor em ordem crescente:"
+PARA i <- 1 ATE 8 FAÇA
+INICIO
+	ESCREVA numeros[i]
+FIM
+FIM_ALGORITIMOS
+___________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+4)
+ALGORITIMO
+___________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+5)
+ALGORITIMO
+DECLARE i, dado[20], c1, c2, c3, c4, c5, c6 NUMERICO
+ESCREVA "Insira os valores sorteados"
+PARA i <- ATE 20 FAÇA
+INICIO
+	LEIA DADOS
+FIM
+c1 <- 0
+c2 <- 0
+c3 <- 0
+c4 <- 0
+c5 <- 0
+c6 <- 0
+PARA i <- 1 ATE 20 FAÇA
+INICIO
+	SE dado[1] == 1 ENTAO
+	INICIO
+		c1 <- c1 + 1
+	FIM
+	SENAO SE dado[1] == 2 ENTAO
+	INICIO
+		c2 <- c2 + 1
+	FIM
+	SENAO SE dado[1] == 3 ENTAO
+	INICIO
+		c3 <- c3 + 1
+	FIM
+	SENAO SE dado[1] == 4 ENTAO
+	INICIO
+		c4 <- c4 + 1
+	FIM
+	SENAO SE dado[1] == 5 ENTAO
+	INICIO
+		c5 <- c5 + 1
+	FIM
+	SENAO
+	INICIO
+		c6 <- c6 + 1
+	FIM
+FIM
+ESCREVA "Total de valores 1", c1
+ESCREVA "Total de valores 2", c2
+ESCREVA "Total de valores 3", c3
+ESCREVA "Total de valores 4", c4
+ESCREVA "Total de valores 5", c5
+ESCREVA "Total de valores 6", c6
+FIM_ALGORITIMO
+___________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+6)
+ALGORITIMO
+DECLARE i, v[5], op NUMERICO
+ESCREVA "Insira os valores no vetor"
+PARA i <- 1 ATE 5 FAÇA
+INICIO
+	LEIA v[i]
+FIM
+ESCREVA "Exibir o vetor ordem direta - 1 "
+ESCREVA "Exibir o vetor ordem inversa - 2"
+ESCREVA "Sair - 0"
+LEIA op
+ENQUANTO(op == 1 OU op == 2) FAÇA
+INICIO
+	SE op == 1 ENTAO
+	INICIO
+		PARA i <- 1 ATE 5 FAÇA
+		INCIO
+			ESCREVA v[i]
+		FIM
+	FIM
+	SENAO
+	INICIO
+		PARA i <- 5 ATE 1 FAÇA
+		INICIO
+			ESCREVA v[i]
+		FIM
+	FIM
+	ESCREVA "Exibir o vetor ordem direta - 1"
+	ESCREVA "Exibir o vetor ordem inversa - 2"
+	ESCREVA "Sair - 0"
+	LEIA op
+FIM
+FIM_ALGORITIMO
